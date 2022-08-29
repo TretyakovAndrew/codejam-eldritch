@@ -2,7 +2,7 @@ import ancientsData from './data/ancients.js';
 import difficulties from './data/difficulties.js';
 // import {brownCards, blueCards, greenCards} from './data/mythicCards/index.js';
 import { getCards, shuffle } from './helper.js';
-// getCards([4, 9, 2], "very_easy", ['greenCards', 'brownCards', 'blueCards']);
+
 
 let currentIndex;
 let difficultyIndex;
@@ -15,7 +15,7 @@ const stages = document.querySelector('.stages');
 
 ancientsData.forEach((ancient, ancientIndex) => {
     let ancientCard = document.createElement('div');
-    let ancientBgLink = `URL('/assets/Ancients/${ancient.cardFace}.png')`;
+    let ancientBgLink = `URL('./assets/Ancients/${ancient.cardFace}.png')`;
 
     ancientCard.classList.add('ancient-card');
     ancientCard.style.backgroundImage = ancientBgLink;
