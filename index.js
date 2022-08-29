@@ -14,7 +14,7 @@ const stages = document.querySelector('.stages');
 
 ancientsData.forEach((ancient, ancientIndex) => {
     let ancientCard = document.createElement('div');
-    let ancientBgLink = `URL('./assets/Ancients/${ancient.cardFace}.png')`;
+    let ancientBgLink = `URL('./codejam-eldritch/assets/Ancients/${ancient.cardFace}.png')`;
 
     ancientCard.classList.add('ancient-card');
     ancientCard.style.backgroundImage = ancientBgLink;
