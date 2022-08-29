@@ -1,26 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <title>Eldritch</title>
+    <title>Eldritch Horror</title>
 </head>
+
 <body>
     <main>
         <div class="main-container">
-            <div class="ancients-container">
-                <div class="ancient-card" style="background-image: url(./assets/Ancients/Azathoth.png);"></div>
-                <div class="ancient-card" style="background-image: url(./assets/Ancients/IogSothoth.png);"></div>
-                <div class="ancient-card" style="background-image: url(./assets/Ancients/Cthulthu.png);"></div>
-                <div class="ancient-card" style="background-image: url(./assets/Ancients/ShubNiggurath.png);"></div>
-            </div>
+            <div class="ancients-container"></div>
             <div class="difficulty-container"></div>
-            <div class="deck-container">
+            <div class="deck-container"></div>
+            <div class="stages">
+                <div data-level="firstStage">
+                    Первый этап<br>
+                    <br>
+                    <span class="green-item" data-color="greenCards">0</span>
+                    <span class="brown-item" data-color="brownCards">2</span>
+                    <span class="blue-item" data-color="blueCards">2</span>
+                </div>
+                <div data-level="secondStage">
+                    Второй этап<br>
+                    <br>
+                    <span class="green-item" data-color="greenCards">0</span>
+                    <span class="brown-item" data-color="brownCards">2</span>
+                    <span class="blue-item" data-color="blueCards">2</span>
+                </div>
+                <div data-level="thirdStage">
+                    Третий этап<br>
+                    <br>
+                    <span class="green-item" data-color="greenCards">0</span>
+                    <span class="brown-item" data-color="brownCards">2</span>
+                    <span class="blue-item" data-color="blueCards">2</span>
+                </div>
             </div>
         </div>
     </main>
-    <script src="./index.js"></script>
+    <script src="./index.js" type="module"></script>
 </body>
+
 </html>
