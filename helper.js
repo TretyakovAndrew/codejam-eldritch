@@ -5,27 +5,16 @@ import cardsBrown from './data/mythicCards/brown/index.js';
 import cardsBlue from './data/mythicCards/blue/index.js';
 
 const cardsObjects = [cardsGreen, cardsBrown, cardsBlue];
-/* 
-    1) объект с количеством нужных карт каждого цвета, например coloredCardsNum = [1, 2, 3];
-    2) difficulty - сложность от 0 до 4 (5шт)
-    3) массив с ключами
-    4) возвращаем объект commonDeck = {
-        greenCards: [{//объекты из cardsGreen}, {}, {}],
-        brownCards: [{}, {}, {}],
-        blueCards: [{}, {}, {}],
-    }
-*/
+
 export function getCards(coloredCardsNum, difficulty, cardsColors, eachStageCards) {
     const commonDeck = {};
     const allStagesDeck = [];
     const result = [];
-    // console.log(difficulty);
+    console.log(difficulty);
 
     switch (difficulty) {
         case "very_easy":
             cardsColors.forEach((color, index) => {
-                //1. Забрать все легкие из массива карт по цвету
-                //2. Если длина меньше чем необход кол-во, то а) забираем среднние, b) мешаем их, c) Срезаем недостоющие
                 let currentCardsArray = cardsObjects[index].slice(0);
                 let easyCards = currentCardsArray.filter(card => card.difficulty === 'easy');
 
@@ -45,8 +34,6 @@ export function getCards(coloredCardsNum, difficulty, cardsColors, eachStageCard
             break;
         case "easy":
             cardsColors.forEach((color, index) => {
-                //1. Забрать все легкие из массива карт по цвету
-                //2. Если длина меньше чем необход кол-во, то а) забираем среднние, b) мешаем их, c) Срезаем недостоющие
                 let currentCardsArray = cardsObjects[index].slice(0);
 
                 currentCardsArray = currentCardsArray.filter(card => card.difficulty !== 'hard');
@@ -57,10 +44,6 @@ export function getCards(coloredCardsNum, difficulty, cardsColors, eachStageCard
             break;
         case "normal":
             cardsColors.forEach((color, index) => {
-                //Например цвет green, количество 5
-                //1. Копия массива cardsGreen
-                //2. Сортируем cardsGreen
-                //3. Срезаем необходимое кол-во (5шт)
                 let currentCardsArray = cardsObjects[index].slice(0);
 
                 shuffle(currentCardsArray);
@@ -80,8 +63,6 @@ export function getCards(coloredCardsNum, difficulty, cardsColors, eachStageCard
             break;
         case "very_hard":
             cardsColors.forEach((color, index) => {
-                //1. Забрать все легкие из массива карт по цвету
-                //2. Если длина меньше чем необход кол-во, то а) забираем среднние, b) мешаем их, c) Срезаем недостоющие
                 let currentCardsArray = cardsObjects[index].slice(0);
                 let hardCards = currentCardsArray.filter(card => card.difficulty === 'hard');
 

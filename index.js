@@ -1,6 +1,5 @@
 import ancientsData from './data/ancients.js';
 import difficulties from './data/difficulties.js';
-// import {brownCards, blueCards, greenCards} from './data/mythicCards/index.js';
 import { getCards, shuffle } from './helper.js';
 
 let currentIndex;
@@ -8,7 +7,7 @@ let difficultyIndex;
 const ancientContainer = document.querySelector('.ancients-container');
 const dificultyContainer = document.querySelector('.difficulty-container');
 const deckContainer = document.querySelector('.deck-container');
-const stages = document.querySelector('.stages');
+// const stages = document.querySelector('.stages');
 
 
 
@@ -31,7 +30,7 @@ function onAncintClick(index) {
         encient.classList.remove('active');
     }
     ancientsList[index].classList.add('active');
-    currentIndex = index; /////////////////////////////////////////переделать
+    currentIndex = index;
     if (!dificultyContainer.firstChild) {
         addDifficulty();
     }
@@ -40,6 +39,7 @@ function onAncintClick(index) {
 function addDifficulty() {
     difficulties.forEach((difficulty, diffIndex) => {
         let diffItem = document.createElement('div');
+
         diffItem.textContent = difficulty.name;
         diffItem.className = 'difficulty';
         dificultyContainer.append(diffItem);
@@ -51,6 +51,7 @@ function addDifficulty() {
 
 function setDifficulty(diffItem, diffIndex) {
     let difficultyList = document.querySelectorAll('.difficulty');
+
     difficultyIndex = diffIndex;
     difficultyList.forEach(dif => {
         dif.classList.remove('active');
@@ -72,8 +73,10 @@ function addShuffle() {
         if (!deckHolder.firstChild) {
             addDeck(deckHolder);
         }
-        stages.classList.add('active');
+        // stages.classList.add('active');
         generateDeck();
+        let cardPlace = document.querySelector('.card-transparent-bg');
+        cardPlace.style.backgroundImage = 'none';
     })
 }
 
@@ -99,8 +102,12 @@ function generateDeck() {
         firstStage: [],
         secondStage: [],
         thirdStage: [],
-    }
-    console.log(resultArray);
+    };
+    let deckBg = document.querySelector('.card-bg');
+    //убираю eventlistener и карту при новом замешивании
+    deckBg.removeEventListener('click', takeCard);
+
+
     //ЗАПОЛНЯЮ НЕОБХОДИМОЕ КОЛИЧЕСТВО ДЛЯ КАЖДОГО ЦВЕТА
     for (let i = 0; i < cardsColors.length; i++) {
         for (let j = 0; j < levels.length; j++) {
@@ -114,29 +121,43 @@ function generateDeck() {
             eachStageCards[levels[i]].push(ancientsData[currentIndex][levels[i]][cardsColors[j]]);
         }
     }
-    
+
 
     //Вызываю функцию, формирующую колоды карт для каждого stage
     resultArray = getCards(coloredCardsNum, difficulties[difficultyIndex].id, cardsColors, eachStageCards);
-    console.log(resultArray);
-    let deckBg = document.querySelector('.card-bg');
+    for (let i = 0; i < 3; i++) {
+        console.log(`${i+1} Этап:`)
+        for (let card of resultArray[i]) {
+            console.log(card);
+        }
+    }
+    console.log(' ');
+    console.log('Выдача карт каждого этапа');
+    console.log(' ');
+
     let cardTransparentBg = document.querySelector('.card-transparent-bg');
-    deckBg.addEventListener('click', () => {
+
+    function takeCard() {
         if (resultArray[0].length > 0) {
+            console.log(`карта первого этапа`);
             let currentCard = resultArray[0].pop();
             let currentBgLink = `${currentCard['color']}/${currentCard['id']}`;
             cardTransparentBg.style.backgroundImage = `URL('/assets/MythicCards/${currentBgLink}.png')`;
             console.log(currentCard);
         } else if (resultArray[1].length > 0) {
+            console.log(`карта второго этапа`);
             let currentCard = resultArray[1].pop();
             let currentBgLink = `${currentCard['color']}/${currentCard['id']}`;
             cardTransparentBg.style.backgroundImage = `URL('/assets/MythicCards/${currentBgLink}.png')`;
             console.log(currentCard);
         } else if (resultArray[2].length > 0) {
+            console.log(`карта третьего этапа`);
             let currentCard = resultArray[2].pop();
             let currentBgLink = `${currentCard['color']}/${currentCard['id']}`;
             cardTransparentBg.style.backgroundImage = `URL('/assets/MythicCards/${currentBgLink}.png')`;
             console.log(currentCard);
         }
-    })
+    }
+
+    deckBg.addEventListener('click', takeCard);
 }
