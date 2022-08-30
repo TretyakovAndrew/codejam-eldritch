@@ -104,6 +104,11 @@ function generateDeck() {
         thirdStage: [],
     };
     let deckBg = document.querySelector('.card-bg');
+    let tracker = document.querySelector('.stages');
+    let fisrstTrackerItems = document.querySelectorAll('.first-item');
+    let secondTrackerItems = document.querySelectorAll('.second-item');
+    let thirdTrackerItems = document.querySelectorAll('.third-item');
+    
     //убираю eventlistener и карту при новом замешивании
     deckBg.removeEventListener('click', takeCard);
 
@@ -135,6 +140,42 @@ function generateDeck() {
     console.log('Выдача карт каждого этапа');
     console.log(' ');
 
+    tracker.classList.add('active');
+
+    countStageColors(resultArray);
+    function countStageColors (resultArray) {
+        for (let i = 0; i < resultArray.length; i++) {
+            let stageColorsCounter = [0, 0, 0]; //green, brown, blue
+
+            for (let j = 0; j < resultArray[i].length; j++) {
+                if (resultArray[i][j].color === 'green') {
+                    stageColorsCounter[0]++;
+                } else if (resultArray[i][j].color === 'brown') {
+                    stageColorsCounter[1]++;
+                } else {
+                    stageColorsCounter[2]++;
+                }
+            }
+            setStageCounter(i, stageColorsCounter);
+        }
+    }
+
+    function setStageCounter(stage, counter) {
+        if (stage === 0) {
+            for (let i = 0; i < 3; i++) {
+                fisrstTrackerItems[i].textContent = counter[i];
+            }
+        } else if (stage === 1) {
+            for (let i = 0; i < 3; i++) {
+                secondTrackerItems[i].textContent = counter[i];
+            }
+        } else {
+            for (let i = 0; i < 3; i++) {
+                thirdTrackerItems[i].textContent = counter[i];
+            }
+        }
+    }
+
     let cardTransparentBg = document.querySelector('.card-transparent-bg');
 
     function takeCard() {
@@ -142,20 +183,26 @@ function generateDeck() {
             console.log(`карта первого этапа`);
             let currentCard = resultArray[0].pop();
             let currentBgLink = `${currentCard['color']}/${currentCard['id']}`;
+
             cardTransparentBg.style.backgroundImage = `URL('/assets/MythicCards/${currentBgLink}.png')`;
             console.log(currentCard);
+            countStageColors (resultArray);
         } else if (resultArray[1].length > 0) {
             console.log(`карта второго этапа`);
             let currentCard = resultArray[1].pop();
             let currentBgLink = `${currentCard['color']}/${currentCard['id']}`;
+
             cardTransparentBg.style.backgroundImage = `URL('/assets/MythicCards/${currentBgLink}.png')`;
             console.log(currentCard);
+            countStageColors (resultArray);
         } else if (resultArray[2].length > 0) {
             console.log(`карта третьего этапа`);
             let currentCard = resultArray[2].pop();
             let currentBgLink = `${currentCard['color']}/${currentCard['id']}`;
+
             cardTransparentBg.style.backgroundImage = `URL('/assets/MythicCards/${currentBgLink}.png')`;
             console.log(currentCard);
+            countStageColors (resultArray);
         }
     }
 
